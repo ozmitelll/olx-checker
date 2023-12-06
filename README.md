@@ -7,8 +7,8 @@ If use this application you need:
   4. Open folder **"service"** and change in file **MailSender.php** your @params in **sendEmail** function for (make you sender account for send messages).
 
   **Example:**
-      * **$mail->Username = 'your@gmail.com';**
-      * **$mail->Password = 'your app password';**
+  * **$mail->Username = 'your@gmail.com';**
+  * **$mail->Password = 'your app password';**
 
   **Take note.** Where get AppPassword you can see this info in Google.
 
