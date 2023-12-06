@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "fabpot/goutte": "^4.0"
+    }
+}
