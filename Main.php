@@ -24,25 +24,26 @@ require 'models\User.php';
 </head>
 
 <body>
-    <header>
+    <header class="header">
+    <h1 class="label">OLX - Checker</h1>
         <?php if (isset($_SESSION["user_id"])) { ?>
-            <ul>
-                <li><a href="pages/logout.php">Logout</a></li>
+            <ul class="nav">
+                <li class="link"><a class="element" href="pages/logout.php">Logout</a></li>
             </ul>
         <?php } else { ?>
-            <ul>
-                <li><a href="pages/login.php">Login</a></li>
-                <li><a href="pages/registrate.php">Registration</a></li>
+            <ul class="nav">
+                <li class="link"><a class="element" href="pages/login.php">Login</a></li>
+                <li class="link"><a class="element" href="pages/registrate.php">Registration</a></li>
             </ul>
         <?php } ?>
     </header>
-    <h1>OLX - Checker</h1>
-
+    
+    <div class="container">
     <?php if (isset($_SESSION["user_name"])) { ?>
-        <p>Welcome, <?php echo $_SESSION["user_name"]; ?>!</p>
+        <p class="welcome">Welcome, <?php echo $_SESSION["user_name"]; ?> !</p>
 
 
-        <h2>Your Subscriptions</h2>
+        <h2 class="subscription-title">Your Subscriptions</h2>
         <?php
         $user = new User($_SESSION["user_id"], $_SESSION["user_name"], $_SESSION["user_email"],$_SESSION["user_password"]);
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["listeningUrl"])) {
@@ -51,11 +52,10 @@ require 'models\User.php';
         }
         $subscriptions = $user->getSubscriptions();
 
-
         if (!empty($subscriptions)) {
-            echo "<ul>";
+            echo "<ul class='subscriptions-list'>";
             foreach ($subscriptions as $subscription) {
-                echo "<li>{$subscription->getListingUrl()}</li>";
+                echo "<li class='sub-item'>{$subscription->getListingUrl()}</li>";
             }
             echo "</ul>";
         } else {
@@ -81,6 +81,7 @@ require 'models\User.php';
             });
         </script>
     <?php } ?>
+    </div>
 </body>
 
 </html>
