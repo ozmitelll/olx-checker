@@ -5,7 +5,6 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: rgb(0, 0, 0);
 }
 .header{
     display: flex;
@@ -44,9 +43,9 @@ body{
     padding: 20px 140px;
 }
 .subscription-title{
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: underline;
 }
 .subscriptions-list{
-    color: white;
+    color: rgb(0, 0, 0);
 }

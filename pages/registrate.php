@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__ . '/../config.php');
+require(__DIR__. '/../service/MailSender.php');
+$mailSender = new MailSender();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
@@ -7,18 +9,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"]; 
 
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
+    $verificationCode = bin2hex(random_bytes(16));
+    
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $name, $email, $passwordHash);
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password_hash, verification_code) VALUES (?, ?, ?,?)");
+    $stmt->bind_param("ssss", $name, $email, $passwordHash, $verificationCode);
 
     if ($stmt->execute() === TRUE) {
-        header('Location: login.php');
+        $verificationLink = "http://localhost:3000/pages/verify.php?code=$verificationCode";
+        $mailSender->sendEmail($email,"Confirm your email!", "Click on this link, for confirm email: $verificationLink");
+        header('Location: wait_verification.php');
         exit();
     } else {
         echo "Error: " . $conn->error;

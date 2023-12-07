@@ -10,7 +10,6 @@ require 'service\MailSender.php';
 require 'models\Subscription.php';
 require 'models\User.php';
 
-
 ?>
 
 <!DOCTYPE html>
