@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssss", $name, $email, $passwordHash, $verificationCode);
 
     if ($stmt->execute() === TRUE) {
-        $verificationLink = "http://localhost:3000/pages/verify.php?code=$verificationCode";
+        $verificationLink = "http://localhost:8000/pages/verify.php?code=$verificationCode";
         $mailSender->sendEmail($email,"Confirm your email!", "Click on this link, for confirm email: $verificationLink");
         header('Location: wait_verification.php');
         exit();
